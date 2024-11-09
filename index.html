@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Activity: Max or Tom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #fff;
+            background-image: url(https://images.pexels.com/photos/28728726/pexels-photo-28728726/free-photo-of-iconic-view-of-big-ben-and-houses-of-parliament-in-london.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2); /* Reemplaza con una URL válida de fondo de Inglaterra */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .question label {
+            margin-right: 15px;
+        }
+        .correct {
+            color: lightgreen;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: #ff4c4c;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Holiday Activity: Max or Tom</h1>
+        <p>Read the two holiday adverts again. Max and Tom are Kate's friends and they're also going on holiday. Max is going on an adventure holiday to Mexico. Tom is going on a Mediterranean cruise. Choose the correct person in each sentence.</p>
+
+        <form id="quizForm">
+            <div class="question">
+                <p>1. I'm visiting Athens on Sunday.</p>
+                <label><input type="radio" name="q1" value="max"> Max</label>
+                <label><input type="radio" name="q1" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>2. At the weekend we're going horse riding.</p>
+                <label><input type="radio" name="q2" value="max"> Max</label>
+                <label><input type="radio" name="q2" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>3. On Friday we're having a party on the boat.</p>
+                <label><input type="radio" name="q3" value="max"> Max</label>
+                <label><input type="radio" name="q3" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>4. We're seeing a movie on Saturday.</p>
+                <label><input type="radio" name="q4" value="max"> Max</label>
+                <label><input type="radio" name="q4" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>5. We're going climbing on Thursday.</p>
+                <label><input type="radio" name="q5" value="max"> Max</label>
+                <label><input type="radio" name="q5" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>6. On Wednesday I'm learning how to sail.</p>
+                <label><input type="radio" name="q6" value="max"> Max</label>
+                <label><input type="radio" name="q6" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>7. On Sunday I'm going to rest by the pool.</p>
+                <label><input type="radio" name="q7" value="max"> Max</label>
+                <label><input type="radio" name="q7" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>8. We're visiting Aztec sites on Monday.</p>
+                <label><input type="radio" name="q8" value="max"> Max</label>
+                <label><input type="radio" name="q8" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>9. Tomorrow we're going to walk 20km.</p>
+                <label><input type="radio" name="q9" value="max"> Max</label>
+                <label><input type="radio" name="q9" value="tom"> Tom</label>
+            </div>
+            <div class="question">
+                <p>10. On Tuesday we're visiting Venice.</p>
+                <label><input type="radio" name="q10" value="max"> Max</label>
+                <label><input type="radio" name="q10" value="tom"> Tom</label>
+            </div>
+
+            <button type="button" onclick="checkAnswers()">Submit</button>
+            <button type="button" onclick="resetQuiz()">Retry</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: "tom",
+            q2: "max",
+            q3: "tom",
+            q4: "tom",
+            q5: "max",
+            q6: "tom",
+            q7: "tom",
+            q8: "max",
+            q9: "max",
+            q10: "tom"
+        };
+
+        function checkAnswers() {
+            const form = document.getElementById('quizForm');
+            const questions = form.querySelectorAll('.question');
+            let correctCount = 0;
+
+            questions.forEach((question, index) => {
+                const questionNumber = `q${index + 1}`;
+                const selectedAnswer = form[questionNumber].value;
+                
+                if (selectedAnswer === correctAnswers[questionNumber]) {
+                    question.querySelector('p').className = 'correct';
+                    correctCount++;
+                } else {
+                    question.querySelector('p').className = 'incorrect';
+                }
+            });
+
+            // Calcular el porcentaje de respuestas correctas
+            const percentage = (correctCount / questions.length) * 100;
+            document.getElementById('result').textContent = `Your score: ${percentage.toFixed(0)}%`;
+        }
+
+        function resetQuiz() {
+            const form = document.getElementById('quizForm');
+            const questions = form.querySelectorAll('.question');
+            
+            questions.forEach((question) => {
+                question.querySelector('p').className = '';
+                const radios = question.querySelectorAll('input[type="radio"]');
+                radios.forEach((radio) => (radio.checked = false));
+            });
+            
+            document.getElementById('result').textContent = '';
+        }
+    </script>
+</body>
+</html>
